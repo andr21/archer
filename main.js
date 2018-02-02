@@ -65,15 +65,18 @@ arrowcanvas.style.display="none";
 //drawDot(100,100,3);
 
 var arrow = document.getElementById('source');
+arrow.width = 60;
+arrow.height = 8;
 
-
-function drawDot(x,y,pointSize){
+function drawDot(x,y,angle){
 	//ctx.fillStyle = 'black';
     //ctx.beginPath();
     //ctx.arc(x, y, pointSize, 0, Math.PI * 2, true);
     //ctx.fill();
 
-    ctx.drawImage(arrow, x, y, 60, 8);
+    //ctx.drawImage(arrow, x, y, 60, 8);
+    //console.log(typeof angle);
+    drawRotated(angle, x, y);
 }
 
 function Particle(x,y){
@@ -83,6 +86,9 @@ function Particle(x,y){
 
 	this.vel = {x: 3, y: -3};
 	this.acc = {x: 0, y: 0.02};
+	this.ang = findAngle(this.vel.x,this.vel.y);
+
+//console.log(this.ang.toString());
 
 	this.update = function(){
 
@@ -99,13 +105,25 @@ function Particle(x,y){
 
 		this.vel.x += this.acc.x;
 		this.vel.y += this.acc.y;
+		
+		this.ang = findAngle(this.vel.x,this.vel.y);
+		
+		//console.log(this.ang);
 	}
 
 	this.draw = function(){
-		drawDot(this.x,this.y,3)
+		drawDot(this.x,this.y,this.ang)
 	}
 
 }
+
+function findAngle(xvel, yvel){
+//console.log(Math.atan(yvel/xvel).toString());
+return Math.atan(yvel/xvel);
+
+}
+
+
 
 //var cool = new Particle(Math.floor(Math.random() * 400),400);
 
@@ -127,6 +145,7 @@ function draw(){
 	{
 	//balls[balls.length] = new Particle(Math.floor(Math.random() * 400),400);
 	}
+	
 }
 
 setInterval(draw,5);
@@ -135,3 +154,29 @@ canvas.onclick = function(){
 
 	balls[balls.length] = new Particle(Math.floor(100),400);
 };
+
+
+
+function drawRotated(radians, centerX, centerY){
+    //context.clearRect(0,0,canvas.width,canvas.height);
+
+    // save the unrotated context of the canvas so we can restore it later
+    // the alternative is to untranslate & unrotate after drawing
+    ctx.save();
+
+    // move to the center of the canvas
+    ctx.translate(centerX,centerY);
+
+    // rotate the canvas to the specified degrees
+    ctx.rotate(radians);
+
+    // draw the image
+    // since the context is rotated, the image will be rotated also
+    ctx.drawImage(arrow,-arrow.width/2,-arrow.height/2, arrow.width, arrow.height);
+
+//console.log(degrees.toString());
+    // we’re done with the rotating so restore the unrotated context
+    ctx.restore();
+}
+
+
