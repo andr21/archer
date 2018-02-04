@@ -8,8 +8,16 @@ var pp = document.querySelector("#pp");
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
-canvas.width = 800;
-canvas.height = 400;
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    console.log("Width: " + canvas.width.toString());
+    console.log("Height: " + canvas.height.toString());
+}
+window.addEventListener('resize', resize, false);
 
 
 canvas.style.background = "rgb(247, 247, 247)";
@@ -214,7 +222,7 @@ function handleTouchEnd(evt) {
    
    if(moved == true){
    
-   arrows[arrows.length] = new ArrowObj(100,350,-yDiff/xDiff, xDiff, yDiff);
+   arrows[arrows.length] = new ArrowObj(100,canvas.height-60,-yDiff/xDiff, xDiff, yDiff);
    
    };
    
