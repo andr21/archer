@@ -120,8 +120,12 @@ function draw(){
 	canvas.width = canvas.width;
 
 	for(var i = 0; i <= arrows.length-1; i++) {
-	arrows[i].draw();
-	arrows[i].update();
+	 arrows[i].draw();
+	 arrows[i].update();
+	 if(arrows[i].y > canvas.height + 50){
+	  arrows.splice(i,1);
+	 }
+	 
 	}
 	for(var i = 0; i <= targets.length-1; i++) {
 	targets[i].draw();
