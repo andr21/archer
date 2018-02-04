@@ -14,6 +14,8 @@ canvas.height = 400;
 
 canvas.style.background = "rgb(247, 247, 247)";
 
+var rect = canvas.getBoundingClientRect();
+
 
 var arrow = document.getElementById('arrow');
 arrow.width = 60;
@@ -30,21 +32,38 @@ function TargetObj(x,y){
  this.y = y;
  
  this.draw = function(){
-  ctx.drawImage(target, this.x, this.y, target.width,target.height);
+ 
+  ctx.drawImage(target, this.x - target.width/2, this.y - target.height/2, target.width,target.height);
+  
+  ctx.beginPath(); 
+  ctx.moveTo(this.x,this.y);
+  ctx.lineTo(Xmove,Ymove);
+  ctx.stroke();
  
  }
 
 }
 
-function ArrowObj(x,y,m,fb){
+function ArrowObj(x,y,m,xDiff,yDiff){
 
 	this.x = x;
 	this.y = y;
 	
-	this.r = 3.5;
+	//this.r = 3.5;
+	var power = Math.sqrt(Math.pow(xDiff,2)+Math.pow(yDiff,2));
+	
+	if(power < 90){
+	 this.r = 2
+	}else if(power < 300){
+	 this.r = 3.5
+	}else{
+	 this.r = 4.5
+	}
+	
+	
 	this.m = m;
 	
-	if(fb < 0){
+	if(xDiff < 0){
 	 this.fb = 1
 	 }else{
 	 this.fb = -1
@@ -61,7 +80,7 @@ function ArrowObj(x,y,m,fb){
 	};
 
 	
-	this.acc = {x: 0, y: 0.02};
+	this.acc = {x: 0, y: 0.018};
 	
 	this.ang = findAngle(this.vel.x,this.vel.y);
 
@@ -84,7 +103,12 @@ function ArrowObj(x,y,m,fb){
 }
 
 function findAngle(xvel, yvel){
+//console.log(yvel.toString());
+if(xvel >0){
   return Math.atan(yvel/xvel);
+}else{
+  return Math.atan(yvel/xvel) + Math.PI
+}
 }
 
 
@@ -132,6 +156,9 @@ canvas.addEventListener('touchend', handleTouchEnd, false);
 
 var firstTouch = null;
 var lastTouch = null;
+var moved = false;
+var Xmove;
+var Ymove;
 
 
 function handleTouchStart(evt) {                                         
@@ -139,7 +166,15 @@ function handleTouchStart(evt) {
     firstTouch = evt;
     lastTouch = evt;
     
-    targets[targets.length] = new TargetObj(firstTouch.touches[0].clientX,firstTouch.touches[0].clientY);
+    rect = canvas.getBoundingClientRect();
+
+var Xclick = evt.touches[0].clientX - rect.left;
+var Yclick = evt.touches[0].clientY - rect.top;
+    
+  Xmove = Xclick;
+  Ymove = Yclick;  
+    //targets[targets.length] = new TargetObj(firstTouch.touches[0].clientX,firstTouch.touches[0].clientY);
+     targets[targets.length] = new TargetObj(Xclick,Yclick);
      
     evt.preventDefault()
                                       
@@ -148,9 +183,15 @@ function handleTouchStart(evt) {
 function handleTouchMove(evt) {
     
     lastTouch = evt;
+    moved = true;
+    
+    rect = canvas.getBoundingClientRect();
+
+Xmove = evt.touches[0].clientX - rect.left;
+Ymove = evt.touches[0].clientY - rect.top;
 
  evt.preventDefault()
-                                            
+                                        
 };
 
 
@@ -161,16 +202,21 @@ function handleTouchEnd(evt) {
     var xUp = lastTouch.touches[0].clientX;                                      
     var yUp = lastTouch.touches[0].clientY;
     
-    var xDiff = xDown - xUp;
-    var yDiff = yDown - yUp;
+    var xDiff = xUp - xDown;
+    var yDiff = yUp - yDown;
     
     
    evt.preventDefault()
    
+   if(moved == true){
    
-   arrows[arrows.length] = new ArrowObj(100,350,-yDiff/xDiff, -xDiff);
+   arrows[arrows.length] = new ArrowObj(100,350,-yDiff/xDiff, xDiff, yDiff);
+   
+   };
    
    firstTouch = null;
    lastTouch = null;
+   moved = false;
+   targets = [];
                                  
 };           
