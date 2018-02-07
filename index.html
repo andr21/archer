@@ -4,22 +4,56 @@
 
 <head>
 <title>Archer</title>
+
+
+<style>
+#bg{
+width: 800px;
+height: 400px;
+position:absolute;
+z-index:1;
+}
+
+#canvas{
+    position:relative;
+    z-index:20;
+}
+
+body{background: #f2f6f8;}
+
+#container{
+    display:inline-block;
+    width:800px; 
+    height:400px;
+    margin: 0 auto; 
+    position:relative; 
+    border:5px solid black; 
+    border-radius: 10px; 
+    box-shadow: 0 5px 50px #333}
+
+</style>
+
 </head>
 
 <body>
 	
 
 
-<p id="pp">Test</p>
 
 <div style="display:none;">
   <img id="arrow" src="arrow.png">
   <img id="target" src="target.png">
 </div>
 
+<br>
+
 <center>
+<div id="container">
+<img id="bg" src="bg.jpg">
 <canvas id ="canvas"></canvas>
+</div>
 </center>
+<p id="pp">Test</p>
 
 
 <script src="main.js" type="text/javascript"></script>

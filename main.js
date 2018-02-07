@@ -8,8 +8,11 @@ var pp = document.querySelector("#pp");
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+//canvas.width = window.innerWidth;
+//canvas.height = window.innerHeight;
+
+canvas.width = 800;
+canvas.height = 400;
 
 function resize() {
     canvas.width = window.innerWidth;
@@ -17,21 +20,24 @@ function resize() {
     console.log("Width: " + canvas.width.toString());
     console.log("Height: " + canvas.height.toString());
 }
-window.addEventListener('resize', resize, false);
+//window.addEventListener('resize', resize, false);
 
 
-canvas.style.background = "rgb(247, 247, 247)";
+//canvas.style.background = "rgb(247, 247, 247)";
 
 var rect = canvas.getBoundingClientRect();
 
 
 var arrow = document.getElementById('arrow');
-arrow.width = 60;
-arrow.height = 8;
+arrow.width = 30;
+arrow.height = 4;
 
 var target = document.getElementById('target');
 target.width = 30;
 target.height = 30;
+
+var ground = 50;
+var arrowsustain = 200;
 
 
 function TargetObj(x,y){
@@ -61,14 +67,14 @@ function ArrowObj(x,y,m,xDiff,yDiff){
 	var power = Math.sqrt(Math.pow(xDiff,2)+Math.pow(yDiff,2));
 	
 	if(power < 90){
-	 this.r = 2
+	 this.r = 4
 	}else if(power < 300){
-	 this.r = 3.5
+	 this.r = 7
 	}else{
-	 this.r = 4.5
+	 this.r = 8
 	}
 	
-	
+	this.hit = 0
 	this.m = m;
 	
 	if(xDiff < 0){
@@ -88,11 +94,12 @@ function ArrowObj(x,y,m,xDiff,yDiff){
 	};
 
 	
-	this.acc = {x: 0, y: 0.018};
+	this.acc = {x: 0, y: 0.06};
 	
 	this.ang = findAngle(this.vel.x,this.vel.y);
 
 	this.update = function(){
+	 if(this.y < canvas.height - ground){
 
 		this.x += this.vel.x;
 		this.y += this.vel.y;
@@ -101,11 +108,19 @@ function ArrowObj(x,y,m,xDiff,yDiff){
 		this.vel.y += this.acc.y;
 		
 		this.ang = findAngle(this.vel.x,this.vel.y);
-		
+		}else{
+		 this.hit += 1;
+		}
 	}
+	
+	
 
 	this.draw = function(){
+	if(this.hit > arrowsustain){
+	 ctx.globalAlpha = Math.max(1-(this.hit-arrowsustain)/100,0);
+	}
 		drawRotated(this.ang, this.x, this.y);
+	ctx.globalAlpha = 1;
 	}
 
 }
@@ -130,7 +145,7 @@ function draw(){
 	for(var i = 0; i <= arrows.length-1; i++) {
 	 arrows[i].draw();
 	 arrows[i].update();
-	 if(arrows[i].y > canvas.height + 50){
+	 if(arrows[i].hit > arrowsustain + 100){
 	  arrows.splice(i,1);
 	 }
 	 
@@ -142,7 +157,7 @@ function draw(){
 	pp.innerHTML = arrows.length;
 }
 
-setInterval(draw,5);
+setInterval(draw,10);
 
 
 function drawRotated(radians, centerX, centerY){
