@@ -40,8 +40,56 @@ var ground = 50;
 var arrowsustain = 200;
 
 
-function TargetObj(x,y){
+function EnemyObj(x,y){
+  this.x = x;
+  this.y = y;
+  this.drawSquares = true;
+  
+  this.vel = {x: -0.35, y: 0};
+  
+  this.head = {
+    xoff: 5
+  , yoff: 0
+  , width: 20
+  , height: 20
+  };
+  
+  this.body = {
+    xoff: 0
+  , yoff: 20
+  , width: 30
+  , height: 30
+  };
+  
+  this.legs = {
+    xoff: 6
+  , yoff: 50
+  , width: 18
+  , height: 20
+  };
+  
+  this.draw = function(){
+  if(this.drawSquares == true){
+   drawboxes(this.x,this.y,this.head);
+   drawboxes(this.x,this.y,this.body);
+   drawboxes(this.x,this.y,this.legs);
+   }
+  }
+  
+  this.update = function(){
+   this.x += this.vel.x;
+  }
+}
 
+function drawboxes(x,y,part){
+ctx.strokeStyle="#FF69FF";
+ctx.rect(x + part.xoff,y + part.yoff,part.width,part.height);
+ctx.stroke();
+
+}
+
+
+function TargetObj(x,y){
  this.x = x;
  this.y = y;
  
@@ -63,7 +111,6 @@ function ArrowObj(x,y,m,xDiff,yDiff){
 	this.x = x;
 	this.y = y;
 	
-	//this.r = 3.5;
 	var power = Math.sqrt(Math.pow(xDiff,2)+Math.pow(yDiff,2));
 	
 	if(power < 90){
@@ -90,7 +137,6 @@ function ArrowObj(x,y,m,xDiff,yDiff){
 	,
 	y: 
 	 -m*this.fb*Math.sqrt(Math.pow(this.r,2)/(Math.pow(this.m,2) + 1))
-	 //-Math.sqrt(this.r^2*this.m^2/(this.m^2 + 1))
 	};
 
 	
@@ -126,7 +172,6 @@ function ArrowObj(x,y,m,xDiff,yDiff){
 }
 
 function findAngle(xvel, yvel){
-//console.log(yvel.toString());
 if(xvel >0){
   return Math.atan(yvel/xvel);
 }else{
@@ -137,6 +182,9 @@ if(xvel >0){
 
 var arrows = [];
 var targets = [];
+var enemys = [];
+
+enemys[enemys.length] = new EnemyObj(750,280);
 
 
 function draw(){
@@ -152,6 +200,10 @@ function draw(){
 	}
 	for(var i = 0; i <= targets.length-1; i++) {
 	targets[i].draw();
+	}
+	for(var i = 0; i <= enemys.length-1; i++) {
+	enemys[i].draw();
+	enemys[i].update();
 	}
 	
 	pp.innerHTML = arrows.length;
@@ -193,6 +245,7 @@ function handleTouchStart(evt) {
     firstTouch = evt;
     lastTouch = evt;
     
+    
     rect = canvas.getBoundingClientRect();
 
 var Xclick = evt.touches[0].clientX - rect.left;
@@ -204,10 +257,12 @@ var Yclick = evt.touches[0].clientY - rect.top;
      targets[targets.length] = new TargetObj(Xclick,Yclick);
      
     evt.preventDefault()
-                                      
+                                    
 };                                                
 
 function handleTouchMove(evt) {
+    
+    if(evt.touches.length = 1){
     
     lastTouch = evt;
     moved = true;
@@ -218,12 +273,16 @@ Xmove = evt.touches[0].clientX - rect.left;
 Ymove = evt.touches[0].clientY - rect.top;
 
  evt.preventDefault()
+ }
+ 
+ //pp.innerHTML = evt.touches.length;
                                         
 };
 
 
 function handleTouchEnd(evt) {    
 
+   if(moved == true){
     var xDown = firstTouch.touches[0].clientX;                                      
     var yDown = firstTouch.touches[0].clientY;                                 
     var xUp = lastTouch.touches[0].clientX;                                      
@@ -233,11 +292,11 @@ function handleTouchEnd(evt) {
     var yDiff = yUp - yDown;
     
     
-   evt.preventDefault()
+  evt.preventDefault()
    
-   if(moved == true){
+
    
-   arrows[arrows.length] = new ArrowObj(100,canvas.height-60,-yDiff/xDiff, xDiff, yDiff);
+   arrows[arrows.length] = new ArrowObj(100,canvas.height-80,-yDiff/xDiff, xDiff, yDiff);
    
    };
    
