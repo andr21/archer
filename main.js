@@ -13,14 +13,6 @@ var ctx = canvas.getContext("2d");
 canvas.width = 800;
 canvas.height = 400;
 
-function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    console.log("Width: " + canvas.width.toString());
-    console.log("Height: " + canvas.height.toString());
-}
-//window.addEventListener('resize', resize, false);
-
 
 //canvas.style.background = "rgb(247, 247, 247)";
 
@@ -41,12 +33,12 @@ var arrowsustain = 200;
 var gold = 0;
 
 // Create sprite sheet
-  coinImage = document.getElementById('coin');
+var coinImage = document.getElementById('coin');
   
   // Create sprite
   coin = sprite({
     width: 1000,
-    height: 500,
+    height: 100,
     image: coinImage,
     numberOfFrames: 10,
     ticksPerFrame: 4,
@@ -56,7 +48,7 @@ var gold = 0;
   });
   
 
-  function sprite (options) {
+function sprite (options) {
   
     var that = {},
       frameIndex = 0,
@@ -64,7 +56,6 @@ var gold = 0;
       ticksPerFrame = options.ticksPerFrame || 0,
       numberOfFrames = options.numberOfFrames || 1;
     
-    that.context = options.context;
     that.width = options.width;
     that.height = options.height;
     that.image = options.image;
@@ -111,8 +102,6 @@ var gold = 0;
 
 
 
-
-
 function EnemyObj(x,y){
   this.x = x;
   this.y = y;
@@ -153,12 +142,12 @@ function EnemyObj(x,y){
   
   this.update = function(){
    this.x += this.vel.x;
+   this.y += this.vel.y;
   }
 
 
   this.ishit = function(x,y){
 
-      //head
       if(this.hitwhere(x,y,this.head)){
         
         this.lives -= 2;
@@ -195,7 +184,6 @@ ctx.strokeStyle="#FF69FF";
 ctx.rect(x + part.xoff,y + part.yoff,part.width,part.height);
 ctx.stroke();
 ctx.closePath();
-ctx.strokeStyle="#000000";
 
 }
 
@@ -260,7 +248,15 @@ function ArrowObj(x,y,m,xDiff,yDiff){
 	this.ang = findAngle(this.vel.x,this.vel.y);
 
 	this.update = function(){
-	 if(this.y < canvas.height - ground){
+	
+	  if(this.y >= canvas.height - ground){
+	    this.hit = 1;
+	    this.vel.x = 0;
+	    this.vel.y = 0;
+	    this.acc.x = 0;
+	    this.acc.y = 0;
+	  }
+	 
 
 		this.x += this.vel.x;
 		this.y += this.vel.y;
@@ -274,9 +270,6 @@ function ArrowObj(x,y,m,xDiff,yDiff){
         this.hitcount += 1;
       }
 
-		}else{
-		 this.hitcount += 1;
-		}
 	}
 	
 	
@@ -320,39 +313,47 @@ function draw(){
     enemys[enemys.length] = new EnemyObj(800,280);
   }
 
-
+endLoopy:
 	for(var i = 0; i <= arrows.length-1; i++) {
+	 
 	 arrows[i].draw();
 	 arrows[i].update();
-	 if(arrows[i].hitcount > arrowsustain + 100){
-	  arrows.splice(i,1);
-	 }
 	 
-	}
-	for(var i = 0; i <= targets.length-1; i++) {
-	targets[i].draw();
-	}
-	for(var i = 0; i <= enemys.length-1; i++) {
-	enemys[i].draw();
-	enemys[i].update();
-	}
-  for(var i = 0; i <= arrows.length-1; i++) {
-    for(var j = 0; j <= enemys.length-1; j++) {
+	 
+	 for(var j = 0; j <= enemys.length-1; j++) {
 
-      if(arrows[i].hit == 0){
-        if(enemys[j].ishit(arrows[i].x,arrows[i].y) == true){
+   if(arrows[i].hit == 0){
+    if(enemys[j].ishit(arrows[i].x,arrows[i].y) == true){
           arrows[i].vel = enemys[j].vel;
           arrows[i].acc = enemys[j].acc;
           arrows[i].hit +=1;
           if(enemys[j].lives <= 0){
             arrows.splice(i,1);
+            i -= 1;
             enemys.splice(j,1);
             gold += 50
+            break endLoopy;
           }
-        }
+       }
       }
-    }
-  }
+ }
+	 
+	 if(arrows[i].hitcount > arrowsustain + 100){
+	  arrows.splice(i,1);
+	  i -= 1;
+	 }
+	 
+}
+	
+	
+	for(var i = 0; i <= targets.length-1; i++) {
+	targets[i].draw();
+	}
+	
+	for(var i = 0; i <= enemys.length-1; i++) {
+	enemys[i].draw();
+	enemys[i].update();
+	}
 	
 	pp.innerHTML = arrows.length;
   goldcounter.innerHTML = gold;
@@ -455,3 +456,12 @@ function handleTouchEnd(evt) {
    targets = [];
                                  
 };           
+
+
+//window.addEventListener('resize', resize, false);
+function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    console.log("Width: " + canvas.width.toString());
+    console.log("Height: " + canvas.height.toString());
+}
