@@ -41,6 +41,20 @@ top: -2px;
 left: 20px;
 }
 
+#gold{
+position:absolute;
+z-index:21;
+top: -2px;
+right: 20px;
+/*color:#c3a343;
+-webkit-text-fill-color: transparent;
+background: -webkit-linear-gradient(transparent, transparent),
+url(gld.jpg) repeat;
+background: -o-linear-gradient(transparent, transparent);
+-webkit-background-clip: text;*/
+text-shadow: #FC0 1px 0 10px;
+}
+
 </style>
 
 </head>
@@ -53,6 +67,7 @@ left: 20px;
 <div style="display:none;">
   <img id="arrow" src="arrow.png">
   <img id="target" src="target.png">
+  <img id="coin" src="coin-sprite-animation.png">
 </div>
 
 
@@ -64,7 +79,8 @@ left: 20px;
 <div id="container">
 <img id="bg" src="bg.jpg">
 <canvas id ="canvas"></canvas>
-<p id="pp">Test</p>
+<p id="pp">0</p>
+<p id="gold">0</p>
 </div>
 </center>
 
