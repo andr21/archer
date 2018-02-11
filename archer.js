@@ -20,6 +20,7 @@ this.x = x;
 this.y = y;
 
 this.pos = 0;
+this.ang = 0;
 
 
 this.head = {
@@ -51,7 +52,7 @@ this.leftarm = {
 
 this.bow = {
 	  x: -15
-	, y: -15
+	, y: -17
 	, ang: 0
 	, xmove: 0
 	, ymove: 0
@@ -101,8 +102,17 @@ this.draw = function(){
 
 this.drawpart = function(part, dependent){
 
-	ctx.drawImage(part.img, this.x + part.x + part.xmove + dependent.xmove, this.y + part.y + part.ymove + dependent.ymove, part.img.width/8, part.img.height/8);
+	ctx.save();
 
+   // ctx.translate(this.x + part.x, this.y + part.y);
+    ctx.translate(this.x + part.x + part.xmove + dependent.xmove + part.img.width/16, this.y + part.y + part.ymove + dependent.ymove + part.img.height/16);
+    
+    ctx.rotate(part.ang);
+
+	//ctx.drawImage(part.img, this.x + part.x + part.xmove + dependent.xmove, this.y + part.y + part.ymove + dependent.ymove, part.img.width/8, part.img.height/8);
+    ctx.drawImage(part.img, -part.img.width/16, -part.img.height/16, part.img.width/8, part.img.height/8);
+
+	ctx.restore();
 }
 
 
@@ -146,6 +156,9 @@ switch(this.pos) {
         this.leftarm.img = leftarmaction;
     	break;
 }
+
+this.bow.ang = this.ang * 0.25 / (Math.PI/2);
+this.head.ang = this.ang * 0.08 / (Math.PI/2);
 
 
 

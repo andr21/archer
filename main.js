@@ -162,7 +162,7 @@ var coinImage = document.getElementById('coin');
     numberOfFrames: 10,
     ticksPerFrame: 1,
     factor: 0.3,
-    x:720,
+    x:715,
     y:8,
     freezeframe: 9
   });
@@ -609,6 +609,9 @@ Ymove = evt.touches[0].clientY - rect.top;
    archers.pos = 3;
   }
 
+  archers.ang = findAngle(xDiff,yDiff)- Math.PI;
+  //console.log((findAngle(xDiff,yDiff)-Math.PI).toString());
+
 
 
 
@@ -638,6 +641,7 @@ function handleTouchEnd(evt) {
    
    arrows[arrows.length] = new ArrowObj(140,canvas.height-100,-yDiff/xDiff, xDiff, yDiff);
    archers.pos = 0;
+   archers.ang = 0;
    
    };
    
