@@ -19,10 +19,12 @@ function archer(x,y){
 this.x = x;
 this.y = y;
 
+this.pos = 0;
+
 
 this.head = {
-	  x: -20
-	, y: -44
+	  x: -18
+	, y: -36
 	, ang: 0
 	, xmove: 0
 	, ymove: 0
@@ -38,20 +40,58 @@ this.torso = {
 	, img: torso
 };
 
+this.leftarm = {
+	  x: 27
+	, y: 30
+	, ang: 0
+	, xmove: 0
+	, ymove: 0
+	, img: leftarmrest
+};
+
+this.bow = {
+	  x: -15
+	, y: -15
+	, ang: 0
+	, xmove: 0
+	, ymove: 0
+	, img: bowrest
+};
+
+this.leftleg = {
+	  x: 14
+	, y: 54
+	, ang: 0
+	, xmove: 0
+	, ymove: 0
+	, img: leg
+};
+
+this.rightleg = {
+	  x: 4
+	, y: 55
+	, ang: 0
+	, xmove: 0
+	, ymove: 0
+	, img: leg
+};
+
 this.null = {
 	 ang: 0
 	, xmove: 0
 	, ymove: 0	
-}
+};
 
 
 
 this.draw = function(){
 
-
-
+	this.drawpart(this.leftleg, this.torso);
+	this.drawpart(this.rightleg, this.torso);
+	this.drawpart(this.leftarm, this.torso);
 	this.drawpart(this.torso, this.null);
 	this.drawpart(this.head, this.torso);
+	this.drawpart(this.bow, this.torso);
 //ctx.drawImage(this.torso.img, this.x + this.torso.x, this.y + this.torso.y, this.torso.img.width/7, this.torso.img.height/7 );
 //console.log("drawing")
 
@@ -59,14 +99,57 @@ this.draw = function(){
 
 
 
-
 this.drawpart = function(part, dependent){
 
-ctx.drawImage(part.img, this.x + part.x + part.xmove + dependent.xmove, this.y + part.y + part.ymove + dependent.ymove, part.img.width/7, part.img.height/7);
+	ctx.drawImage(part.img, this.x + part.x + part.xmove + dependent.xmove, this.y + part.y + part.ymove + dependent.ymove, part.img.width/8, part.img.height/8);
 
 }
 
 
+this.update = function(){
 
+switch(this.pos) {
+    case 0:
+        this.bow.x = -15;
+        this.bow.y = -15;
+        this.bow.img = bowrest;
+
+        this.leftarm.x = 27;
+        this.leftarm.y = 30;
+        this.leftarm.img = leftarmrest;
+        break;
+    case 1:
+        this.bow.x = -10;
+        this.bow.y = -15;
+        this.bow.img = bow1;
+
+        this.leftarm.x = 27;
+        this.leftarm.y = 30;
+        this.leftarm.img = leftarmaction;
+        break;
+    case 2:
+    	this.bow.x = -15;
+        this.bow.y = -15;
+        this.bow.img = bow2;
+
+        this.leftarm.x = 27;
+        this.leftarm.y = 30;
+        this.leftarm.img = leftarmaction;
+    	break;
+    case 3:
+    	this.bow.x = -13;
+        this.bow.y = -15;
+        this.bow.img = bow3;
+
+        this.leftarm.x = 27;
+        this.leftarm.y = 30;
+        this.leftarm.img = leftarmaction;
+    	break;
+}
+
+
+
+
+}
 
 }

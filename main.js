@@ -10,8 +10,8 @@ var ctx = canvas.getContext("2d");
 //canvas.width = window.innerWidth;
 //canvas.height = window.innerHeight;
 
-canvas.width = 1000;
-canvas.height = 500;
+canvas.width = 800;
+canvas.height = 400;
 
 
 //canvas.style.background = "rgb(247, 247, 247)";
@@ -353,7 +353,7 @@ function ArrowObj(x,y,m,xDiff,yDiff){
 	
 	if(power < 90){
 	 this.r = 4
-	}else if(power < 300){
+	}else if(power < 250){
 	 this.r = 7
 	}else{
 	 this.r = 8
@@ -435,10 +435,10 @@ var enemys = [];
 var bloods = [];
 var clouds = [];
 
-var archers = new archer(140,350);
+var archers = new archer(80,280);
 
 
-enemys[enemys.length] = new EnemyObj(800,380);
+enemys[enemys.length] = new EnemyObj(800,280);
 
 //injured(200,200);
 function draw(){
@@ -447,6 +447,7 @@ function draw(){
     coin.update();
     coin.render();
 
+    archers.update();
     archers.draw();
 
 for(var i = 0; i <= bloods.length-1; i++) {
@@ -462,7 +463,7 @@ for(var i = 0; i <= bloods.length-1; i++) {
 }
 
   if(Math.random()> 0.997){
-    enemys[enemys.length] = new EnemyObj(800,380);
+    enemys[enemys.length] = new EnemyObj(800,280);
   }
 
   if(Math.random()> 0.9985){
@@ -588,6 +589,29 @@ function handleTouchMove(evt) {
 Xmove = evt.touches[0].clientX - rect.left;
 Ymove = evt.touches[0].clientY - rect.top;
 
+
+
+    var xDown = firstTouch.touches[0].clientX;                                      
+    var yDown = firstTouch.touches[0].clientY;                                 
+    var xUp = lastTouch.touches[0].clientX;                                      
+    var yUp = lastTouch.touches[0].clientY;
+    
+    var xDiff = xUp - xDown;
+    var yDiff = yUp - yDown;
+
+    var power = Math.sqrt(Math.pow(xDiff,2)+Math.pow(yDiff,2));
+  
+  if(power < 90){
+   archers.pos = 1;
+  }else if(power < 250){
+   archers.pos = 2;
+  }else{
+   archers.pos = 3;
+  }
+
+
+
+
  evt.preventDefault()
  }
  
@@ -612,7 +636,8 @@ function handleTouchEnd(evt) {
    
 
    
-   arrows[arrows.length] = new ArrowObj(180,canvas.height-80,-yDiff/xDiff, xDiff, yDiff);
+   arrows[arrows.length] = new ArrowObj(140,canvas.height-100,-yDiff/xDiff, xDiff, yDiff);
+   archers.pos = 0;
    
    };
    
