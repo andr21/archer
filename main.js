@@ -553,7 +553,7 @@ function handleTouchEnd(evt) {
    
 
    
-   arrows[arrows.length] = new ArrowObj(100,canvas.height-80,-yDiff/xDiff, xDiff, yDiff);
+   arrows[arrows.length] = new ArrowObj(180,canvas.height-80,-yDiff/xDiff, xDiff, yDiff);
    
    };
    
