@@ -32,6 +32,82 @@ var arrowsustain = 200;
 
 var gold = 0;
 
+function drawBall(x,y,size, color){
+
+  ctx.beginPath();
+  ctx.arc(x, y, size, 0, Math.PI*2);
+  ctx.fillStyle = color;
+  ctx.fill();
+  ctx.closePath();
+
+}
+
+function bloodParticle(x,y,vx,vy, ax,ay){
+this.x = x;
+this.y = y;
+this.color = 'red';
+this.size = 1.2;
+this.delay = Math.random() * 30;
+this.vel = {x: vx, y: vy}
+this.acc = {x: ax, y: ay}
+this.ground = 0;
+
+
+this.update = function(){
+
+if(this.y >= canvas.height - ground){
+	    this.ground += 1;
+	    this.vel.x = 0;
+	    this.vel.y = 0;
+	    this.acc.x = 0;
+	    this.acc.y = 0;
+	  }
+
+
+
+ if(this.delay <= 0){
+   this.x += this.vel.x
+   this.y += this.vel.y
+   this.vel.x += this.acc.x
+   this.vel.y += this.acc.y
+  }else{
+   this.delay -= 1;
+  }
+
+}
+
+this.draw = function(){
+
+if(this.ground > arrowsustain){
+	 ctx.globalAlpha = Math.max(1-(this.ground-arrowsustain)/100,0);
+	}
+    drawBall(this.x, this.y, this.size, this.color);
+    ctx.globalAlpha = 1;
+ }
+
+}
+
+
+
+
+function injured(x, y, arrowvel){
+
+for(i=1; i<=Math.random()*150+50; i++){
+
+bloods[bloods.length] = new bloodParticle(x,y,-arrowvel.x/6 + (Math.random() * 0.4) - 0.2, arrowvel.y/6 + (Math.random() * 0.4) - 0.2, 0, 0.06);
+
+}
+
+
+}
+
+
+
+
+
+
+
+
 // Create sprite sheet
 var coinImage = document.getElementById('coin');
   
@@ -41,16 +117,18 @@ var coinImage = document.getElementById('coin');
     height: 100,
     image: coinImage,
     numberOfFrames: 10,
-    ticksPerFrame: 4,
+    ticksPerFrame: 1,
     factor: 0.3,
-    x:725,
-    y:8
+    x:720,
+    y:8,
+    freezeframe: 9
   });
   
 
 function sprite (options) {
   
     var that = {},
+      spincount = 0;
       frameIndex = 0,
       tickCount = 0,
       ticksPerFrame = options.ticksPerFrame || 0,
@@ -62,9 +140,14 @@ function sprite (options) {
     that.factor = options.factor;
     that.x = options.x;
     that.y = options.y;
+    that.freezeframe = options.freezeframe || 500;
     
     that.update = function () {
-
+            if(spincount == numberOfFrames*4){
+              spincount = 0;
+              that.freezeframe = 9;
+              
+            }
             tickCount += 1;
 
             if (tickCount > ticksPerFrame) {
@@ -77,6 +160,10 @@ function sprite (options) {
                     frameIndex += 1;
                 } else {
                     frameIndex = 0;
+                }
+                
+                if(that.freezeframe < 500){
+                  frameIndex = that.freezeframe;
                 }
             }
         };
@@ -94,6 +181,12 @@ function sprite (options) {
         that.y,
         that.factor * that.width / numberOfFrames,
         that.factor * that.height);
+    
+    if(that.freezeframe == 500){
+      spincount += 1;
+    }
+    
+    
     };
     
     return that;
@@ -296,18 +389,29 @@ if(xvel >0){
 var arrows = [];
 var targets = [];
 var enemys = [];
-
+var bloods = [];
 
 
 enemys[enemys.length] = new EnemyObj(800,280);
 
-
+//injured(200,200);
 function draw(){
 	canvas.width = canvas.width;
   
     coin.update();
     coin.render();
 
+for(var i = 0; i <= bloods.length-1; i++) {
+	 
+	 bloods[i].draw();
+	 bloods[i].update();
+	 
+	 if(bloods[i].ground > arrowsustain + 100){
+	  bloods.splice(i,1);
+	  i -= 1;
+	 }
+
+}
 
   if(Math.random()> 0.997){
     enemys[enemys.length] = new EnemyObj(800,280);
@@ -324,14 +428,17 @@ endLoopy:
 
    if(arrows[i].hit == 0){
     if(enemys[j].ishit(arrows[i].x,arrows[i].y) == true){
+          var arrowvel = arrows[i].vel;
           arrows[i].vel = enemys[j].vel;
           arrows[i].acc = enemys[j].acc;
           arrows[i].hit +=1;
           if(enemys[j].lives <= 0){
+            injured(arrows[i].x,arrows[i].y, arrowvel);
             arrows.splice(i,1);
             i -= 1;
             enemys.splice(j,1);
             gold += 50
+            coin.freezeframe = 500;
             break endLoopy;
           }
        }
