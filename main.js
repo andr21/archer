@@ -10,8 +10,8 @@ var ctx = canvas.getContext("2d");
 //canvas.width = window.innerWidth;
 //canvas.height = window.innerHeight;
 
-canvas.width = 800;
-canvas.height = 400;
+canvas.width = 1000;
+canvas.height = 500;
 
 
 //canvas.style.background = "rgb(247, 247, 247)";
@@ -31,6 +31,49 @@ var ground = 50;
 var arrowsustain = 200;
 
 var gold = 0;
+
+
+var c1 = document.getElementById('c1');
+var c2 = document.getElementById('c2');
+var c3 = document.getElementById('c3');
+
+
+function cloud(){
+    this.x = 153;
+    this.y = Math.random()*60 + 10;
+
+    var randomiser = Math.random();
+
+    if(randomiser < 0.33){
+      this.img = c1;
+    }
+    else if(randomiser < 0.66){
+      this.img = c2;
+    }
+    else{
+      this.img = c3;
+    }
+
+
+    this.vel = {x: Math.random()/4, y: 0};
+
+    this.update = function(){
+         this.x += this.vel.x
+         this.y += this.vel.y
+
+    }
+
+    this.draw = function(){
+        ctx.drawImage(this.img, this.x, this.y, this.img.width/3, this.img.height/3);
+
+    }
+
+
+
+}
+
+
+
 
 function drawBall(x,y,size, color){
 
@@ -390,9 +433,12 @@ var arrows = [];
 var targets = [];
 var enemys = [];
 var bloods = [];
+var clouds = [];
+
+var archers = new archer(140,350);
 
 
-enemys[enemys.length] = new EnemyObj(800,280);
+enemys[enemys.length] = new EnemyObj(800,380);
 
 //injured(200,200);
 function draw(){
@@ -400,6 +446,8 @@ function draw(){
   
     coin.update();
     coin.render();
+
+    archers.draw();
 
 for(var i = 0; i <= bloods.length-1; i++) {
 	 
@@ -414,8 +462,19 @@ for(var i = 0; i <= bloods.length-1; i++) {
 }
 
   if(Math.random()> 0.997){
-    enemys[enemys.length] = new EnemyObj(800,280);
+    enemys[enemys.length] = new EnemyObj(800,380);
   }
+
+  if(Math.random()> 0.9985){
+    clouds[clouds.length] = new cloud;
+  }
+for(var i = 0; i <= clouds.length-1; i++) {
+    clouds[i].draw();
+    clouds[i].update();
+}
+
+
+
 
 endLoopy:
 	for(var i = 0; i <= arrows.length-1; i++) {
