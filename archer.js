@@ -5,7 +5,6 @@ var bow1 = document.getElementById('bow1');
 var bow2 = document.getElementById('bow2');
 var bow3 = document.getElementById('bow3');
 var bowrest = document.getElementById('bowrest');
-var head = document.getElementById('head');
 var torso = document.getElementById('torso');
 var leg = document.getElementById('leg');
 var leftarmaction = document.getElementById('leftarmaction');
@@ -16,20 +15,23 @@ var leftarmrest = document.getElementById('leftarmrest');
 function archer(x,y){
 
 
+
 this.x = x;
 this.y = y;
 
 this.pos = 0;
 this.ang = 0;
+this.blink = 0;
 
 
 this.head = {
-	  x: -18
-	, y: -36
+	  x: -22
+	, y: -34
 	, ang: 0
 	, xmove: 0
 	, ymove: 0
 	, img: head
+	
 };
 
 this.torso = {
@@ -161,7 +163,14 @@ this.bow.ang = this.ang * 0.25 / (Math.PI/2);
 this.head.ang = this.ang * 0.08 / (Math.PI/2);
 
 
-
+if(this.blink == 400){
+  this.head.img = headb;
+}else if(this.blink > 405){
+  this.head.img = head;
+  this.blink = 0;
+}
+this.blink += 1;
+//console.log(this.blink.toString());
 
 }
 

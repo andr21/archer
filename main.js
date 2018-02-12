@@ -1,3 +1,12 @@
+//archer breathing?
+//open m or f
+//enemies art
+//big enemy
+//lives
+//music
+//levels + shop
+//shop items - double arrow, no reload, slow arrow, visuals - a hat, castle flag
+
 
 
 
@@ -13,6 +22,15 @@ var ctx = canvas.getContext("2d");
 canvas.width = 800;
 canvas.height = 400;
 
+var sex = 0;
+
+if(sex == 0){
+var head = document.getElementById('mhead');
+var headb = document.getElementById('mheadb');
+}else{
+var headb = document.getElementById('fheadb');
+var head = document.getElementById('fhead');
+}
 
 //canvas.style.background = "rgb(247, 247, 247)";
 
@@ -39,7 +57,7 @@ var c3 = document.getElementById('c3');
 
 
 function cloud(){
-    this.x = 153;
+    this.x = 155;
     this.y = Math.random()*60 + 10;
 
     var randomiser = Math.random();
@@ -444,8 +462,7 @@ enemys[enemys.length] = new EnemyObj(800,280);
 function draw(){
 	canvas.width = canvas.width;
   
-    coin.update();
-    coin.render();
+    
 
     archers.update();
     archers.draw();
@@ -475,6 +492,9 @@ for(var i = 0; i <= clouds.length-1; i++) {
 }
 
 
+
+    coin.update();
+    coin.render();
 
 
 endLoopy:
