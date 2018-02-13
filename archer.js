@@ -107,12 +107,12 @@ this.drawpart = function(part, dependent){
 	ctx.save();
 
    // ctx.translate(this.x + part.x, this.y + part.y);
-    ctx.translate(this.x + part.x + part.xmove + dependent.xmove + part.img.width/16, this.y + part.y + part.ymove + dependent.ymove + part.img.height/16);
+    ctx.translate(this.x + part.x + part.xmove + dependent.xmove + part.img.width/2, this.y + part.y + part.ymove + dependent.ymove + part.img.height/2);
     
     ctx.rotate(part.ang);
 
 	//ctx.drawImage(part.img, this.x + part.x + part.xmove + dependent.xmove, this.y + part.y + part.ymove + dependent.ymove, part.img.width/8, part.img.height/8);
-    ctx.drawImage(part.img, -part.img.width/16, -part.img.height/16, part.img.width/8, part.img.height/8);
+    ctx.drawImage(part.img, -part.img.width/2, -part.img.height/2, part.img.width, part.img.height);
 
 	ctx.restore();
 }
