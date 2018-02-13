@@ -19,8 +19,8 @@ var ctx = canvas.getContext("2d");
 //canvas.width = window.innerWidth;
 //canvas.height = window.innerHeight;
 
-canvas.width = 800;
-canvas.height = 400;
+canvas.width = 900;
+canvas.height = 450;
 
 var sex = 0;
 
@@ -57,7 +57,7 @@ var c3 = document.getElementById('c3');
 
 
 function cloud(){
-    this.x = 155;
+    this.x = 185;
     this.y = Math.random()*60 + 10;
 
     var randomiser = Math.random();
@@ -180,7 +180,7 @@ var coinImage = document.getElementById('coin');
     numberOfFrames: 10,
     ticksPerFrame: 1,
     factor: 0.3,
-    x:715,
+    x:815,
     y:8,
     freezeframe: 9
   });
@@ -453,10 +453,10 @@ var enemys = [];
 var bloods = [];
 var clouds = [];
 
-var archers = new archer(80,280);
+var archers = new archer(80,330);
 
 
-enemys[enemys.length] = new EnemyObj(800,280);
+enemys[enemys.length] = new EnemyObj(canvas.width,330);
 
 //injured(200,200);
 function draw(){
@@ -480,7 +480,7 @@ for(var i = 0; i <= bloods.length-1; i++) {
 }
 
   if(Math.random()> 0.997){
-    enemys[enemys.length] = new EnemyObj(800,280);
+    enemys[enemys.length] = new EnemyObj(canvas.width,330);
   }
 
   if(Math.random()> 0.9985){
@@ -659,7 +659,7 @@ function handleTouchEnd(evt) {
    
 
    
-   arrows[arrows.length] = new ArrowObj(140,canvas.height-100,-yDiff/xDiff, xDiff, yDiff);
+   arrows[arrows.length] = new ArrowObj(140,canvas.height-80,-yDiff/xDiff, xDiff, yDiff);
    archers.pos = 0;
    archers.ang = 0;
    
