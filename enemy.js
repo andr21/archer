@@ -53,6 +53,7 @@ function EnemyObj(x,y){
   this.blink = 0;
   this.walktick = 9;
   this.tick = 0;
+  this.beenhit = false;
 
   this.vel = {x: -0.35, y: 0};
   this.acc = {x: 0, y: 0};
@@ -267,9 +268,10 @@ this.null = {
     }
 
     //blinking
-    if(this.blink == 500){
+    //been hit can be removed when i have blinking grit teeth
+    if(this.blink == 500 && this.beenhit == false){
       this.head.img = enemyImgs.headblink;
-    }else if(this.blink > 505){
+    }else if(this.blink > 505 && this.beenhit == false){
       this.head.img = enemyImgs.head;
       this.blink = 0;
     }
@@ -308,14 +310,17 @@ this.drawpart = function(part, dependent){
       if(this.hitwhere(x,y,this.Sqhead)){
         
         this.lives -= 2;
+        this.head.img = enemyImgs.headgrit;
         return true
       }else if(this.hitwhere(x,y,this.Sqbody)){
         
         this.lives -= 1;
+        this.head.img = enemyImgs.headgrit;
         return true
       }else if(this.hitwhere(x,y,this.Sqlegs)){
        
         this.lives -= 1;
+        this.head.img = enemyImgs.headgrit;
         return true
       }else if(this.hitwhere(x,y,this.Sqhelmet)){
        
@@ -329,6 +334,7 @@ this.drawpart = function(part, dependent){
 
   this.hitwhere = function(x,y,part){
       if(x > this.x + part.xoff && x < this.x + part.xoff + part.width && y > this.y + part.yoff && y < this.y + part.yoff + part.height){
+        this.beenhit = true;
         return true;
       }else{
         return false;

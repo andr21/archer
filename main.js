@@ -1,5 +1,7 @@
 //archer breathing?
 //reload bar
+//enemies death animation
+//enemies health bar?
 //open m or f
 //big enemy
 //lives
