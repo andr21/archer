@@ -383,7 +383,7 @@ var clouds = [];
 var archers = new archer(80,330);
 
 
-enemys[enemys.length] = new EnemyObj(canvas.width,330);
+enemys[enemys.length] = new EnemyObj(canvas.width,320);
 
 //injured(200,200);
 function draw(){
@@ -407,7 +407,7 @@ for(var i = 0; i <= bloods.length-1; i++) {
 }
 
   if(Math.random()> 0.997){
-    enemys[enemys.length] = new EnemyObj(canvas.width,330);
+    enemys[enemys.length] = new EnemyObj(canvas.width,320);
   }
 
   if(Math.random()> 0.9985){

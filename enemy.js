@@ -47,11 +47,11 @@ enemyImgs.torso = document.getElementById('enemytorso');
 function EnemyObj(x,y){
   this.x = x;
   this.y = y;
-  this.drawSquares = true;
+  this.drawSquares = false;
   this.lives = 2;
   this.walkcycle = 1;
   this.blink = 0;
-  this.walktick = 8;
+  this.walktick = 9;
   this.tick = 0;
 
   this.vel = {x: -0.35, y: 0};
@@ -65,8 +65,16 @@ function EnemyObj(x,y){
   
 
   //targeting
+
+  this.Sqhelmet = {
+    xoff: -5
+  , yoff: -24
+  , width: 50
+  , height: 20
+  };
+
   this.Sqhead = {
-    xoff: -10
+    xoff: -9
   , yoff: -4
   , width: 50
   , height: 30
@@ -81,9 +89,9 @@ function EnemyObj(x,y){
   
   this.Sqlegs = {
     xoff: 6
-  , yoff: 70
+  , yoff: 72
   , width: 18
-  , height: 20
+  , height: 18
   };
 
 //art
@@ -162,17 +170,18 @@ this.null = {
   this.draw = function(){
 
     this.drawpart(this.legs, this.null); 
-    this.drawpart(this.leftarm, this.null);   
+    this.drawpart(this.leftarm, this.torso);   
     this.drawpart(this.torso, this.null);    
-    this.drawpart(this.head, this.null);
-    this.drawpart(this.rightarm, this.null);
-    this.drawpart(this.helmet, this.null);
+    this.drawpart(this.head, this.torso);
+    this.drawpart(this.rightarm, this.torso);
+    this.drawpart(this.helmet, this.torso);
 
 
   if(this.drawSquares == true){
    drawboxes(this.x,this.y,this.Sqhead);
    drawboxes(this.x,this.y,this.Sqbody);
    drawboxes(this.x,this.y,this.Sqlegs);
+   drawboxes(this.x,this.y,this.Sqhelmet);
    }
 
   }
@@ -195,12 +204,16 @@ this.null = {
       this.rightarm.img = enemyImgs.ra[1];
       this.leftarm.img = enemyImgs.la[1];
 
+      this.torso.ymove = 1;
+
 
       break;
     case 2:
       this.legs.img = enemyImgs.legs[2];
       this.rightarm.img = enemyImgs.ra[2];
       this.leftarm.img = enemyImgs.la[2];
+
+      this.torso.ymove = 0;
 
 
       break;
@@ -223,12 +236,16 @@ this.null = {
       this.rightarm.img = enemyImgs.ra[5];
       this.leftarm.img = enemyImgs.la[5];
 
+      this.torso.ymove = 1;
+
 
       break;
     case 6:
       this.legs.img = enemyImgs.legs[6];
       this.rightarm.img = enemyImgs.ra[6];
       this.leftarm.img = enemyImgs.la[6];
+
+      this.torso.ymove = 0;
 
 
       break;
@@ -299,6 +316,9 @@ this.drawpart = function(part, dependent){
       }else if(this.hitwhere(x,y,this.Sqlegs)){
        
         this.lives -= 1;
+        return true
+      }else if(this.hitwhere(x,y,this.Sqhelmet)){
+       
         return true
       }else{
         return false
