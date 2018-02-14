@@ -1,14 +1,15 @@
 
 
+var archerImgs = [];
 
-var bow1 = document.getElementById('bow1');
-var bow2 = document.getElementById('bow2');
-var bow3 = document.getElementById('bow3');
-var bowrest = document.getElementById('bowrest');
-var torso = document.getElementById('torso');
-var leg = document.getElementById('leg');
-var leftarmaction = document.getElementById('leftarmaction');
-var leftarmrest = document.getElementById('leftarmrest');
+archerImgs.bow1 = document.getElementById('bow1');
+archerImgs.bow2 = document.getElementById('bow2');
+archerImgs.bow3 = document.getElementById('bow3');
+archerImgs.bowrest = document.getElementById('bowrest');
+archerImgs.torso = document.getElementById('torso');
+archerImgs.leg = document.getElementById('leg');
+archerImgs.leftarmaction = document.getElementById('leftarmaction');
+archerImgs.leftarmrest = document.getElementById('leftarmrest');
 
 
 
@@ -30,7 +31,7 @@ this.head = {
 	, ang: 0
 	, xmove: 0
 	, ymove: 0
-	, img: head
+	, img: archerImgs.head
 	
 };
 
@@ -40,7 +41,7 @@ this.torso = {
 	, ang: 0
 	, xmove: 0
 	, ymove: 0
-	, img: torso
+	, img: archerImgs.torso
 };
 
 this.leftarm = {
@@ -49,7 +50,7 @@ this.leftarm = {
 	, ang: 0
 	, xmove: 0
 	, ymove: 0
-	, img: leftarmrest
+	, img: archerImgs.leftarmrest
 };
 
 this.bow = {
@@ -58,7 +59,7 @@ this.bow = {
 	, ang: 0
 	, xmove: 0
 	, ymove: 0
-	, img: bowrest
+	, img: archerImgs.bowrest
 };
 
 this.leftleg = {
@@ -67,7 +68,7 @@ this.leftleg = {
 	, ang: 0
 	, xmove: 0
 	, ymove: 0
-	, img: leg
+	, img: archerImgs.leg
 };
 
 this.rightleg = {
@@ -76,7 +77,7 @@ this.rightleg = {
 	, ang: 0
 	, xmove: 0
 	, ymove: 0
-	, img: leg
+	, img: archerImgs.leg
 };
 
 this.null = {
@@ -106,13 +107,11 @@ this.drawpart = function(part, dependent){
 
 	ctx.save();
 
-   // ctx.translate(this.x + part.x, this.y + part.y);
-    ctx.translate(this.x + part.x + part.xmove + dependent.xmove + part.img.width/2, this.y + part.y + part.ymove + dependent.ymove + part.img.height/2);
+	ctx.translate(this.x + part.x + part.xmove + dependent.xmove + part.img.width/2, this.y + part.y + part.ymove + dependent.ymove + part.img.height/2);
     
     ctx.rotate(part.ang);
 
-	//ctx.drawImage(part.img, this.x + part.x + part.xmove + dependent.xmove, this.y + part.y + part.ymove + dependent.ymove, part.img.width/8, part.img.height/8);
-    ctx.drawImage(part.img, -part.img.width/2, -part.img.height/2, part.img.width, part.img.height);
+	ctx.drawImage(part.img, -part.img.width/2, -part.img.height/2, part.img.width, part.img.height);
 
 	ctx.restore();
 }
@@ -124,38 +123,38 @@ switch(this.pos) {
     case 0:
         this.bow.x = -15;
         this.bow.y = -15;
-        this.bow.img = bowrest;
+        this.bow.img = archerImgs.bowrest;
 
         this.leftarm.x = 27;
         this.leftarm.y = 30;
-        this.leftarm.img = leftarmrest;
+        this.leftarm.img = archerImgs.leftarmrest;
         break;
     case 1:
         this.bow.x = -10;
         this.bow.y = -15;
-        this.bow.img = bow1;
+        this.bow.img = archerImgs.bow1;
 
         this.leftarm.x = 27;
         this.leftarm.y = 30;
-        this.leftarm.img = leftarmaction;
+        this.leftarm.img = archerImgs.leftarmaction;
         break;
     case 2:
     	this.bow.x = -15;
         this.bow.y = -15;
-        this.bow.img = bow2;
+        this.bow.img = archerImgs.bow2;
 
         this.leftarm.x = 27;
         this.leftarm.y = 30;
-        this.leftarm.img = leftarmaction;
+        this.leftarm.img = archerImgs.leftarmaction;
     	break;
     case 3:
     	this.bow.x = -13;
         this.bow.y = -15;
-        this.bow.img = bow3;
+        this.bow.img = archerImgs.bow3;
 
         this.leftarm.x = 27;
         this.leftarm.y = 30;
-        this.leftarm.img = leftarmaction;
+        this.leftarm.img = archerImgs.leftarmaction;
     	break;
 }
 
@@ -164,9 +163,9 @@ this.head.ang = this.ang * 0.08 / (Math.PI/2);
 
 
 if(this.blink == 400){
-  this.head.img = headb;
+  this.head.img = archerImgs.headb;
 }else if(this.blink > 405){
-  this.head.img = head;
+  this.head.img = archerImgs.head;
   this.blink = 0;
 }
 this.blink += 1;

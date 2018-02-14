@@ -28,11 +28,11 @@ canvas.height = 450;
 var sex = 0;
 
 if(sex == 0){
-var head = document.getElementById('mhead');
-var headb = document.getElementById('mheadb');
+archerImgs.head = document.getElementById('mhead');
+archerImgs.headb = document.getElementById('mheadb');
 }else{
-var headb = document.getElementById('fheadb');
-var head = document.getElementById('fhead');
+archerImgs.headb = document.getElementById('fheadb');
+archerImgs.head = document.getElementById('fhead');
 }
 
 //canvas.style.background = "rgb(247, 247, 247)";
@@ -258,82 +258,6 @@ function sprite (options) {
 
 
 
-
-function EnemyObj(x,y){
-  this.x = x;
-  this.y = y;
-  this.drawSquares = true;
-  this.lives = 2;
-  
-  this.vel = {x: -0.35, y: 0};
-  this.acc = {x: 0, y: 0};
-  
-  this.head = {
-    xoff: 5
-  , yoff: 0
-  , width: 20
-  , height: 20
-  };
-  
-  this.body = {
-    xoff: 0
-  , yoff: 20
-  , width: 30
-  , height: 30
-  };
-  
-  this.legs = {
-    xoff: 6
-  , yoff: 50
-  , width: 18
-  , height: 20
-  };
-  
-  this.draw = function(){
-  if(this.drawSquares == true){
-   drawboxes(this.x,this.y,this.head);
-   drawboxes(this.x,this.y,this.body);
-   drawboxes(this.x,this.y,this.legs);
-   }
-  }
-  
-  this.update = function(){
-   this.x += this.vel.x;
-   this.y += this.vel.y;
-  }
-
-
-  this.ishit = function(x,y){
-
-      if(this.hitwhere(x,y,this.head)){
-        
-        this.lives -= 2;
-        return true
-      }else if(this.hitwhere(x,y,this.body)){
-        
-        this.lives -= 1;
-        return true
-      }else if(this.hitwhere(x,y,this.legs)){
-       
-        this.lives -= 1;
-        return true
-      }else{
-        return false
-      }
-
-
-  }
-
-  this.hitwhere = function(x,y,part){
-      if(x > this.x + part.xoff && x < this.x + part.xoff + part.width && y > this.y + part.yoff && y < this.y + part.yoff + part.height){
-        return true;
-      }else{
-        return false;
-      }
-
-  }
-
-}
 
 function drawboxes(x,y,part){
   ctx.beginPath();
