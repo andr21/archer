@@ -1,11 +1,14 @@
 //archer breathing?
+//reload bar
+//put images in arrays
 //open m or f
 //enemies art
 //big enemy
 //lives
+//make better target image
 //music
 //levels + shop
-//shop items - double arrow, no reload, slow arrow, visuals - a hat, castle flag
+//shop items - extra damage, double arrow, no reload, slow arrow, visuals - a hat, castle flag
 
 
 
@@ -659,7 +662,7 @@ function handleTouchEnd(evt) {
    
 
    
-   arrows[arrows.length] = new ArrowObj(140,canvas.height-80,-yDiff/xDiff, xDiff, yDiff);
+   arrows[arrows.length] = new ArrowObj(140,canvas.height-85,-yDiff/xDiff, xDiff, yDiff);
    archers.pos = 0;
    archers.ang = 0;
    
