@@ -1,8 +1,6 @@
 //archer breathing?
 //reload bar
-//put images in arrays
 //open m or f
-//enemies art
 //big enemy
 //lives
 //make better target image
@@ -380,6 +378,11 @@ var enemys = [];
 var bloods = [];
 var clouds = [];
 
+var enemyGap = 30;
+var enemyGapCount = 0;
+var cloudGap = 20;
+var cloudGapCount = 0;
+
 var archers = new archer(80,330);
 
 
@@ -406,13 +409,18 @@ for(var i = 0; i <= bloods.length-1; i++) {
 
 }
 
-  if(Math.random()> 0.997){
+  if(Math.random()> 0.997 && enemyGapCount <= 0){
+  enemyGapCount = enemyGap;
     enemys[enemys.length] = new EnemyObj(canvas.width,320);
   }
+  enemyGapCount -=1;
 
   if(Math.random()> 0.9985){
+  cloudGapCount = cloudGap;
     clouds[clouds.length] = new cloud;
   }
+  cloudGapCount -= 1;
+  
 for(var i = 0; i <= clouds.length-1; i++) {
     clouds[i].draw();
     clouds[i].update();
@@ -424,6 +432,13 @@ for(var i = 0; i <= clouds.length-1; i++) {
     coin.render();
 
 
+for(var i = 0; i <= enemys.length-1; i++) {
+	enemys[i].draw();
+	enemys[i].update();
+	}
+
+
+
 endLoopy:
 	for(var i = 0; i <= arrows.length-1; i++) {
 	 
@@ -431,7 +446,9 @@ endLoopy:
 	 arrows[i].update();
 	 
 	 
+	 
 	 for(var j = 0; j <= enemys.length-1; j++) {
+
 
    if(arrows[i].hit == 0){
     if(enemys[j].ishit(arrows[i].x,arrows[i].y) == true){
@@ -460,14 +477,12 @@ endLoopy:
 }
 	
 	
+	 
 	for(var i = 0; i <= targets.length-1; i++) {
 	targets[i].draw();
 	}
 	
-	for(var i = 0; i <= enemys.length-1; i++) {
-	enemys[i].draw();
-	enemys[i].update();
-	}
+	
 	
 	pp.innerHTML = arrows.length;
   goldcounter.innerHTML = gold;
