@@ -2,6 +2,16 @@
 
 var archerImgs = [];
 
+var sex = 0;
+
+if(sex == 0){
+  archerImgs.head = document.getElementById('mhead');
+  archerImgs.headb = document.getElementById('mheadb');
+}else{
+  archerImgs.headb = document.getElementById('fheadb');
+  archerImgs.head = document.getElementById('fhead');
+}
+
 archerImgs.bow1 = document.getElementById('bow1');
 archerImgs.bow2 = document.getElementById('bow2');
 archerImgs.bow3 = document.getElementById('bow3');

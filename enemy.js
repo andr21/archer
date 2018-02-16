@@ -343,3 +343,15 @@ this.drawpart = function(part, dependent){
   }
 
 }
+
+
+
+
+function drawboxes(x,y,part){
+  ctx.beginPath();
+ctx.strokeStyle="#FF69FF";
+ctx.rect(x + part.xoff,y + part.yoff,part.width,part.height);
+ctx.stroke();
+ctx.closePath();
+
+}
