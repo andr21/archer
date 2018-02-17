@@ -14,6 +14,7 @@ function ArrowObj(x,y,m,xDiff,yDiff){
 
 	this.x = x;
 	this.y = y;
+	this.id = 0;
 	
 	var power = Math.sqrt(Math.pow(xDiff,2)+Math.pow(yDiff,2));
 	
@@ -124,6 +125,7 @@ ctx.strokeStyle="#000000"
   ctx.beginPath(); 
   ctx.moveTo(this.x,this.y);
   ctx.lineTo(Xmove,Ymove);
+  ctx.lineWidth = 2;
   ctx.stroke();
   ctx.closePath();
  

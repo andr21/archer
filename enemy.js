@@ -54,6 +54,9 @@ function EnemyObj(x,y){
   this.walktick = 9;
   this.tick = 0;
   this.beenhit = false;
+  this.dead = false;
+  this.fade = 0;
+  this.id = Math.floor(Math.random()*1000);
 
   this.vel = {x: -0.35, y: 0};
   this.acc = {x: 0, y: 0};
@@ -169,6 +172,10 @@ this.null = {
 
   
   this.draw = function(){
+  
+  if(this.dead == true){
+	 ctx.globalAlpha = Math.max(1-this.fade/100,0);
+	}
 
     this.drawpart(this.legs, this.null); 
     this.drawpart(this.leftarm, this.torso);   
@@ -184,14 +191,19 @@ this.null = {
    drawboxes(this.x,this.y,this.Sqlegs);
    drawboxes(this.x,this.y,this.Sqhelmet);
    }
-
+   
+   if(this.dead == true){
+     ctx.globalAlpha = 1;
+     this.fade += 1;
+   }
   }
   
   this.update = function(){
    this.x += this.vel.x;
    this.y += this.vel.y;
 
-
+   if(this.dead == false){
+   
     switch(this.walkcycle) {
     case 0:
       this.legs.img = enemyImgs.legs[0];
@@ -288,6 +300,7 @@ this.null = {
     this.tick += 1;
 
   }
+}
 
 
 this.drawpart = function(part, dependent){
@@ -302,6 +315,24 @@ this.drawpart = function(part, dependent){
 
 }
 
+
+
+this.die = function(){
+  this.legs.img = enemyImgs.legs[0];
+  this.rightarm.img = enemyImgs.ra[0];
+  this.leftarm.img = enemyImgs.la[0];
+
+  this.vel = {x: 0, y: 0};
+  this.dead = true;
+  
+  for(var i = 0; i <= arrows.length-1; i++) {
+    if(arrows[i].id == this.id){
+      arrows[i].vel = {x: 0, y: 0};
+      arrows[i].hitcount = Math.max(arrows[i].hitcount, arrowsustain);
+    }
+  }
+  
+}
 
 
 

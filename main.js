@@ -115,6 +115,10 @@ for(var i = 0; i <= clouds.length-1; i++) {
 for(var i = 0; i <= enemys.length-1; i++) {
 	enemys[i].draw();
 	enemys[i].update();
+	if(enemys[i].fade >= 100){
+	  enemys.splice(i,1);
+	  i -= 1;
+	}
 }
 
 
@@ -128,18 +132,21 @@ endLoopy:
 	 
 	 for(var j = 0; j <= enemys.length-1; j++) {
 
-       if(arrows[i].hit == 0){
+       if(arrows[i].hit == 0 && enemys[j].dead == false){
          if(enemys[j].ishit(arrows[i].x,arrows[i].y) == true){
           var arrowvel = arrows[i].vel;
           arrows[i].vel = enemys[j].vel;
           arrows[i].acc = enemys[j].acc;
+          arrows[i].id = enemys[j].id;
           arrows[i].hit +=1;
+          
           if(enemys[j].lives <= 0){
+          
             injured(arrows[i].x,arrows[i].y, arrowvel);
-            arrows.splice(i,1);
-            i -= 1;
-            enemys.splice(j,1);
-            gold += 50
+            //arrows.splice(i,1);
+            //enemys.splice(j,1);
+            enemys[j].die();
+            gold += 5
             coin.freezeframe = 500;
             break endLoopy;
           }
@@ -163,7 +170,7 @@ endLoopy:
 	
 	
 	
-	pp.innerHTML = arrows.length;
+	pp.innerHTML = enemys.length;
     goldcounter.innerHTML = gold;
 
 }
