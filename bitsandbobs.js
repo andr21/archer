@@ -362,3 +362,61 @@ function findAngle(xvel, yvel){
 }
 
 
+
+
+//reload
+
+
+function reload(x,y){
+
+this.x = x;
+this.y = y;
+this.width = 50;
+this.height = 8;
+this.segs = 5;
+this.ticks = 0;
+this.reloadspeed = 15;
+this.track = 0;
+this.done = false;
+
+
+this.draw = function(){
+
+      ctx.beginPath();
+      ctx.rect(this.x, this.y, this.width, this.height);
+      //ctx.fillStyle = 'yellow';
+      //ctx.fill();
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = 'black';
+      ctx.stroke();
+      ctx.closePath();
+      
+      ctx.beginPath();
+      ctx.rect(this.x, this.y, this.track, this.height);
+      ctx.fillStyle = 'black';
+      ctx.fill();
+      //ctx.lineWidth = 2;
+      //ctx.strokeStyle = 'black';
+      //ctx.stroke();
+      ctx.closePath();
+      
+      
+}
+
+
+this.update = function(){
+
+if(this.ticks % this.reloadspeed == 0){
+
+  this.track += this.width/this.segs;
+  if(this.track > this.width){
+    this.done = true;
+  }
+}
+
+this.ticks += 1;
+}
+
+
+}
+

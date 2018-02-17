@@ -92,7 +92,11 @@ function handleTouchEnd(evt) {
    
 
    
-   arrows[arrows.length] = new ArrowObj(140,canvas.height-85,-yDiff/xDiff, xDiff, yDiff);
+   if(reloads == null){
+     arrows[arrows.length] = new ArrowObj(140,canvas.height-85,-yDiff/xDiff, xDiff, yDiff);
+     reloads = new reload(archers.x - 5,archers.y + 90);
+     }
+   
    archers.pos = 0;
    archers.ang = 0;
    

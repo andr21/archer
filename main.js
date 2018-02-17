@@ -1,5 +1,4 @@
 //archer breathing?
-//reload bar
 //click as well as touch controls
 //enemies death animation - stops walking, changes face, drops sword? fades out.
 //enemies health bar?
@@ -41,6 +40,7 @@ var targets = [];
 var enemys = [];
 var bloods = [];
 var clouds = [];
+var reloads = null;
 
 var enemyGap = 30;
 var enemyGapCount = 0;
@@ -55,8 +55,6 @@ enemys[enemys.length] = new EnemyObj(canvas.width,320);
 
 
 
-
-
 //draw
 
 function draw(){
@@ -66,6 +64,14 @@ function draw(){
     archers.update();
     archers.draw();
 
+    if(reloads != null){
+      reloads.draw();
+      reloads.update();
+   
+      if(reloads.done == true){
+        reloads = null;
+      }
+    }
 
 for(var i = 0; i <= bloods.length-1; i++) {
 	 
