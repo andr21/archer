@@ -80,7 +80,7 @@ function ArrowObj(x,y,m,xDiff,yDiff){
 	if(this.hitcount > arrowsustain){
 	 ctx.globalAlpha = Math.max(1-(this.hitcount-arrowsustain)/100,0);
 	}
-		drawRotated(this.ang, this.x, this.y);
+		drawArrowRotated(this.ang, this.x, this.y);
 	ctx.globalAlpha = 1;
 	}
 
@@ -88,6 +88,19 @@ function ArrowObj(x,y,m,xDiff,yDiff){
 
 
 
+
+function drawArrowRotated(radians, centerX, centerY){
+ 
+    ctx.save();
+
+    ctx.translate(centerX,centerY);
+    
+    ctx.rotate(radians);
+
+    ctx.drawImage(arrow,-arrow.width/2,-arrow.height/2, arrow.width, arrow.height);
+
+    ctx.restore();
+}
 
 
 
