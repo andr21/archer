@@ -45,11 +45,13 @@ body{
   z-index:21;
   top: -2px;
   right: 20px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   /*color:#c3a343;
   -webkit-text-fill-color: transparent;
   background: -webkit-linear-gradient(transparent, transparent),
   url(gld.jpg) repeat;
   background: -o-linear-gradient(transparent, transparent);
-  -webkit-background-clip: text;*/
-  text-shadow: #FC0 1px 0 10px;
+  -webkit-background-clip: text;
+  text-shadow: #FC0 1px 0 10px;*/
+  text-shadow: white 1px 0 10px;
 }

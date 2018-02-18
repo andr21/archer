@@ -21,10 +21,14 @@
     padding: 1px 16px;
     background-color: black;
     color: white;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 /* Modal Body */
-.modal-body {padding: 1px 16px;}
+.modal-body {
+padding: 1px 16px;
+font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
 
 /* Modal Footer */
 .modal-footer {
@@ -51,7 +55,7 @@
 /* Add Animation */
 @keyframes animatetop {
     from {top: -300px; opacity: 0}
-    to {top: 0; opacity: 1}
+    to {top: 40px; opacity: 1}
 }
 
 
@@ -67,6 +71,7 @@
     float: right;
     font-size: 28px;
     font-weight: bold;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .close:hover,
