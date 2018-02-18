@@ -1,0 +1,55 @@
+body{
+  background: #f2f6f8;
+}
+
+#container{
+  display:inline-block;
+  width: 900px; 
+  height: 450px;
+  margin: 0 auto; 
+  position:relative; 
+  border:5px solid black; 
+  border-radius: 10px; 
+  box-shadow: 0 5px 50px #333
+}
+
+#bg{
+  width: 900px;
+  height: 450px;
+  position:absolute;
+  z-index:1;
+}
+
+#canvas{
+  position:relative;
+  z-index:20;
+}
+
+#settings{
+  position:absolute;
+  z-index:22;
+  top: 4px;
+  left: 10px;
+  width: 25px;
+}
+
+#pp{
+  position:absolute;
+  z-index:21;
+  top: -10px;
+  left: 45px;
+}
+
+#gold{
+  position:absolute;
+  z-index:21;
+  top: -2px;
+  right: 20px;
+  /*color:#c3a343;
+  -webkit-text-fill-color: transparent;
+  background: -webkit-linear-gradient(transparent, transparent),
+  url(gld.jpg) repeat;
+  background: -o-linear-gradient(transparent, transparent);
+  -webkit-background-clip: text;*/
+  text-shadow: #FC0 1px 0 10px;
+}

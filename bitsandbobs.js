@@ -1,5 +1,41 @@
 
 
+//settings
+
+var span = document.getElementsByClassName("close")[0];
+
+var modal = document.getElementById('myModal');
+
+var settings = document.getElementById('settings');
+
+settings.onclick = function(){
+
+ //pause game
+ pauseplay();
+ //settings menu
+ modal.style.display = "block";
+
+}
+
+span.onclick = function(){
+
+  modal.style.display = "none";
+  
+}
+
+//add somewhere
+// When the user clicks anywhere outside of the modal, close it
+//window.onclick = function(event) {
+    //if (event.target == modal) {
+       // modal.style.display = "none";
+   // }
+//}
+
+
+
+
+
+
 
 
 //arrows

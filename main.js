@@ -35,6 +35,7 @@ var ground = 50;
 
 var gold = 0;
 
+var pause = true;
 
 var arrows = [];
 var targets = [];
@@ -54,6 +55,24 @@ var archers = new archer(80,330);
 enemys[enemys.length] = new EnemyObj(canvas.width,320);
 
 
+
+
+var game;
+pauseplay();
+
+function pauseplay(){
+
+  if(pause == true){
+    game = setInterval(draw,10);
+    pause = false;
+    console.log('Game unpaused');
+  }else{
+    clearInterval(game);
+    pause = true;
+    console.log('Game paused');
+  }
+
+}
 
 
 //draw
@@ -175,6 +194,4 @@ endLoopy:
     goldcounter.innerHTML = gold;
 
 }
-
-setInterval(draw,10);
 
