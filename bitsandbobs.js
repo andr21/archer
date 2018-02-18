@@ -8,11 +8,25 @@ var modal = document.getElementById('myModal');
 
 var settings = document.getElementById('settings');
 
+
+var maleRadio = document.getElementById('maleRadio');
+var femaleRadio = document.getElementById('femaleRadio');
+
+maleRadio.checked = true;
+
 settings.onclick = function(){
 
  //pause game
  pauseplay();
  //settings menu
+
+ if(sex == 0){
+  maleRadio.checked = true;
+ }else{
+  femaleRadio.checked = true;
+ }
+
+
  modal.style.display = "block";
 
 }
@@ -20,6 +34,16 @@ settings.onclick = function(){
 span.onclick = function(){
 
   modal.style.display = "none";
+
+  if(maleRadio.checked == true){
+    sex = 0;
+    setsex();
+  }else{
+    sex = 1;
+    setsex();
+  }
+
+
   pauseplay();
   
 }
@@ -31,8 +55,6 @@ span.onclick = function(){
        // modal.style.display = "none";
    // }
 //}
-
-
 
 
 

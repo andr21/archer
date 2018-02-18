@@ -3,13 +3,16 @@
 var archerImgs = [];
 
 var sex = 0;
+setsex();
 
-if(sex == 0){
-  archerImgs.head = document.getElementById('mhead');
-  archerImgs.headb = document.getElementById('mheadb');
-}else{
-  archerImgs.headb = document.getElementById('fheadb');
-  archerImgs.head = document.getElementById('fhead');
+function setsex(){
+	if(sex == 0){
+	  archerImgs.head = document.getElementById('mhead');
+	  archerImgs.headb = document.getElementById('mheadb');
+	}else{
+	  archerImgs.headb = document.getElementById('fheadb');
+	  archerImgs.head = document.getElementById('fhead');
+	}
 }
 
 archerImgs.bow1 = document.getElementById('bow1');

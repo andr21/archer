@@ -4,6 +4,7 @@ var enemyImgs = [];
 enemyImgs.head = document.getElementById('head');
 enemyImgs.headblink = document.getElementById('headblink');
 enemyImgs.headgrit = document.getElementById('headgrit');
+enemyImgs.headdead = document.getElementById('headdead');
 enemyImgs.helmet = document.getElementById('helmet');
 enemyImgs.la = [];
 enemyImgs.la[0] = document.getElementById('la0');
@@ -321,6 +322,7 @@ this.die = function(){
   this.legs.img = enemyImgs.legs[0];
   this.rightarm.img = enemyImgs.ra[0];
   this.leftarm.img = enemyImgs.la[1];
+  this.head.img = enemyImgs.headdead;
 
   this.vel = {x: 0, y: 0};
   this.dead = true;
