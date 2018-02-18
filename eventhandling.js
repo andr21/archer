@@ -95,7 +95,7 @@ function handleTouchEnd(evt) {
    
 
    
-   if(reloads == null){
+   if(reloaded == true){
     
       //var rand = Math.random();
       //if(rand < 0.3){
@@ -108,6 +108,7 @@ function handleTouchEnd(evt) {
 
      arrows[arrows.length] = new ArrowObj(140,canvas.height-88,-yDiff/xDiff, xDiff, yDiff);
      reloads = new reload(archers.x - 5,archers.y + 90);
+     reloaded = false;
      }
    
    archers.pos = 0;
@@ -215,7 +216,7 @@ function mouseup(evt)
   evt.preventDefault()
    
 
-    if(reloads == null){
+    if(reloaded == true){
 
       //var rand = Math.random();
       //if(rand < 0.3){
@@ -229,6 +230,7 @@ function mouseup(evt)
 
       arrows[arrows.length] = new ArrowObj(140,canvas.height-88,-yDiff/xDiff, xDiff, yDiff);
       reloads = new reload(archers.x - 5,archers.y + 90);
+      reloaded = false;
     }
    
    archers.pos = 0;

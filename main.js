@@ -52,6 +52,7 @@ var enemys = [];
 var bloods = [];
 var clouds = [];
 var reloads = null;
+var reloaded = true;
 
 var enemyGap = 30;
 var enemyGapCount = 0;

@@ -434,9 +434,9 @@ this.x = x;
 this.y = y;
 this.width = 50;
 this.height = 8;
-this.segs = 5;
+this.segs = 10;
 this.ticks = 0;
-this.reloadspeed = 15;
+this.reloadspeed = 8;
 this.track = 0;
 this.done = false;
 
@@ -470,9 +470,13 @@ this.update = function(){
 if(this.ticks % this.reloadspeed == 0){
 
   this.track += this.width/this.segs;
+  if(this.track == this.width){
+    reloaded = true;
+  }
   if(this.track > this.width){
     this.done = true;
   }
+  
 }
 
 this.ticks += 1;
