@@ -39,9 +39,9 @@ var pause = true;
 
 
 //audio
-var a1 = new Audio('music/a1.mp3');
-var a2 = new Audio('music/a2.mp3');
-var a3 = new Audio('music/a3.mp3');
+//var a1 = new Audio('music/a1.mp3');
+//var a2 = new Audio('music/a2.mp3');
+//var a3 = new Audio('music/a3.mp3');
 
 
 

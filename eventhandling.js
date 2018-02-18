@@ -97,14 +97,14 @@ function handleTouchEnd(evt) {
    
    if(reloads == null){
     
-      var rand = Math.random();
-      if(rand < 0.3){
-        a1.play();
-      }else if(rand < 0.6){
-        a2.play();
-      }else{
-        a3.play();
-      }
+      //var rand = Math.random();
+      //if(rand < 0.3){
+      //  a1.play();
+      //}else if(rand < 0.6){
+      //  a2.play();
+      //}else{
+      //  a3.play();
+      //}
 
      arrows[arrows.length] = new ArrowObj(140,canvas.height-88,-yDiff/xDiff, xDiff, yDiff);
      reloads = new reload(archers.x - 5,archers.y + 90);
@@ -217,14 +217,14 @@ function mouseup(evt)
 
     if(reloads == null){
 
-      var rand = Math.random();
-      if(rand < 0.3){
-        a1.play();
-      }else if(rand < 0.6){
-        a2.play();
-      }else{
-        a3.play();
-      }
+      //var rand = Math.random();
+      //if(rand < 0.3){
+      //  a1.play();
+      //}else if(rand < 0.6){
+      //  a2.play();
+      //}else{
+      //  a3.play();
+      //}
 
 
       arrows[arrows.length] = new ArrowObj(140,canvas.height-88,-yDiff/xDiff, xDiff, yDiff);
