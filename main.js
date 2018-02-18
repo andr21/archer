@@ -6,6 +6,7 @@
 //big enemy
 //lives
 //make better target image
+//enemys attack archer
 //music
 //levels + shop
 //shop items - extra damage, double arrow, no reload, slow arrow, visuals - a hat, castle flag

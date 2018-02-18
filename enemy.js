@@ -320,7 +320,7 @@ this.drawpart = function(part, dependent){
 this.die = function(){
   this.legs.img = enemyImgs.legs[0];
   this.rightarm.img = enemyImgs.ra[0];
-  this.leftarm.img = enemyImgs.la[0];
+  this.leftarm.img = enemyImgs.la[1];
 
   this.vel = {x: 0, y: 0};
   this.dead = true;
